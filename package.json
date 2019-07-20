@@ -1,0 +1,22 @@
+{
+  "name": "lnd-pay",
+  "version": "1.0.0",
+  "description": "A payment backend for LN invoices",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": {
+    "type": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "ln-service": "^40.4.3",
+    "ws": "^7.1.0"
+  }
+}

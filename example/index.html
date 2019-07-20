@@ -1,0 +1,41 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>LND Pay Example</title>
+  <meta name="description" content="LND Pay Example">
+  <link href="css/lndpay.css" rel="stylesheet">
+  <link href="css/bootstrap-4.3.1.min.css" rel="stylesheet">
+  <link href="css/fontawesome.min.css" rel="stylesheet">
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="js/kjua-0.6.0.min.js"></script>
+  <script type="text/javascript" src="js/lndpay.jquery.js"></script>
+</head>
+
+<script>
+$(document).ready(function(){
+    $('#lnd-pay').lndPay({
+        apiURL: 'http://localhost:1338/api/v0',
+        wsURL: 'ws://127.0.0.1:1337/ws',
+        expire: 5
+    });
+});
+
+</script>
+<body>
+    <div class="container py-5">
+        <div class="jumbotron pt-4 pb-5">
+            <h1 class="display-4">LND Pay Example</h1>
+            <p class="lead">This is a simple tool to create a Lightning Network invoice and check for a successful payment.</p>
+            <p>It's compatible with LND and uses Alex Bosworth's <a href="https://github.com/alexbosworth/ln-service" target="_blank">ln-service</a>.</p>
+            <a class="btn btn-secondary btn-lg" href="https://github.com/mariodian/lnd-pay" target="_blank" role="button">Learn more</a>
+
+            <hr class="my-5">
+
+            <div id="lnd-pay"></div>
+        </div>
+    </div>
+</body>
+</html>
