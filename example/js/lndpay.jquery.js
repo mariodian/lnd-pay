@@ -38,8 +38,7 @@
 
         this.init = function() {
             if (settings.apiURL === null || settings.wsURL === null) {
-                console.log('Error: API and WebSocket URL must be provided.');
-                return false;
+                throw new Error('API and WebSocket URL must be provided.');
             }
 
             if (settings.buildUI) {
@@ -108,9 +107,9 @@
             $payReq.attr('placeholder', 'Please wait...');
 
             $.ajax({
-                method: "POST",
+                method: 'POST',
                 url: settings.apiURL + '/invoices',
-                dataType: "json",
+                dataType: 'json',
                 data: {
                     tokens: parseInt(amount),
                     description: description,
@@ -155,6 +154,7 @@
 
                 // Create a clickable payment QR code
                 $qr = $('#' + ns + 'qr');
+
                 $qr.html(qr);
                 $qr.find('img').wrap('<a href="' + paymentRequest + '"></a>');
 
@@ -165,7 +165,7 @@
             }
         }
 
-        this.openWebSocket = function(invoiceID, options) {
+        this.openWebSocket = function(invoiceId, options) {
             if (typeof options === 'object') {
                 settings = $.extend({}, settings, options);
             }
@@ -173,8 +173,8 @@
             let con = new WebSocket(settings.wsURL);
             con.onopen = function () {
                 // Send invoice ID to server so it only checks for particular invoice status
-                if (invoiceID) {
-                    con.send(invoiceID)
+                if (invoiceId) {
+                    con.send(invoiceId)
                 } else {
                     con.close();
                 }
@@ -185,8 +185,9 @@
             };
 
             con.onmessage = function (message) {
+                let json;
                 try {
-                    var json = JSON.parse(message.data);
+                    json = JSON.parse(message.data);
                 } catch (e) {
                     console.log('This doesn\'t look like a valid JSON: ', message.data);
                     return;
@@ -224,8 +225,7 @@
 
         this.toggleQR = function() {
             $qr && $qr.slideToggle(300);
-            
-            // Open 
+
             return localStorage.showQR = !localStorage.showQR ? true : '';
         }
 
@@ -239,7 +239,6 @@
 
             if (navigator.userAgent.match(iosDevice)) {
                 const el = document.querySelector('#' + ns + 'pay_req');
-
                 const isEditable = el.contentEditable;
                 const isReadOnly = el.readOnly;
 
@@ -269,7 +268,9 @@
 
             copyText.prop('hidden', false).text(' Copied!');
 
-            return setTimeout(() => copyText.text(''), 1000);
+            return setTimeout(function(){
+                copyText.text('');
+            }, 1000);
         }
 
         return this.init();
