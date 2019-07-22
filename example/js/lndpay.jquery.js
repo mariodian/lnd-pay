@@ -71,22 +71,26 @@
         };
 
         this.buildUI = function() {
+            const html = '<div class="input-group mb-2">' + 
+            (settings.amount === null 
+                ? '<input type="text" class="form-control form-control-sm" id="' + ns + 'amount" placeholder="Enter amount in sats">' 
+                : '') +
+            (settings.description === '' 
+                ? '<input type="text" class="form-control form-control-sm" id="' + ns + 'description" placeholder="Enter payment\'s description">' 
+                : '') + 
+            '</div>' + 
+            '<div class="input-group mb-3">' + 
+            '<input type="text" readonly class="form-control form-control-sm" id="' + ns + 'pay_req" placeholder="Payment request">' + 
+            '<div class="input-group-append">' + 
+            '<a id="' + ns + 'copy_pay_req" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-copy"></i><span class="text"></span></a>' + 
+            '<a id="' + ns + 'show_qr" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-qrcode"></i></a>' + 
+            '<a id="' + ns + 'pay" href="#" class="btn btn-warning btn-sm"><i class="fa fa-bolt fa-fw mr-1"></i> Pay</a>' + 
+            '</div>' +
+            '</div>';
+
             $(this).html('<form />');
-
             $form = $(this).find('form');
-
-            $form.html('<div class="input-group mb-2"> \
-                ' + (settings.amount === null ? '<input type="text" class="form-control form-control-sm" id="' + ns + 'amount" placeholder="Enter amount in sats">' : '') + ' \
-                ' + (settings.description === '' ? '<input type="text" class="form-control form-control-sm" id="' + ns + 'description" placeholder="Enter payment\'s description">' : '') + ' \
-            </div> \
-            <div class="input-group mb-3"> \
-                <input size="50" type="text" readonly class="form-control form-control-sm" id="' + ns + 'pay_req" placeholder="Payment request"> \
-                <div class="input-group-append"> \
-                    <a id="' + ns + 'copy_pay_req" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-copy"></i><span class="text"></span></a> \
-                    <a id="' + ns + 'show_qr" href="#" class="btn btn-secondary btn-sm"><i class="fa fa-qrcode"></i></a> \
-                    <a id="' + ns + 'pay" href="#" class="btn btn-warning btn-sm"><i class="fa fa-bolt fa-fw mr-1"></i> Pay</a> \
-                </div> \
-            </div>');
+            $form.html(html);
         }
 
         this.createInvoice = function(options) {
@@ -201,7 +205,14 @@
                     }
 
                     if (typeof kjua != 'undefined') {
-                        $qr.prepend('<div class="qr-overlay text-white"><div class="qr-overlay-wrapper"><p><i class="fa fa-check-circle fa-8x fa-fw text-warning"></i></p><p>Thank you for your payment!</p></div></div>');
+                        const html = '<div class="qr-overlay text-white">' + 
+                        '<div class="qr-overlay-wrapper">' + 
+                        '<p><i class="fa fa-check-circle fa-8x fa-fw text-warning"></i></p>' + 
+                        '<p>Thank you for your payment!</p>' + 
+                        '</div>' +
+                        '</div>';
+
+                        $qr.prepend(html);
                     } else {
                         $(self).append('<p>Invoice paid. Thank you!</p>');
                     }
