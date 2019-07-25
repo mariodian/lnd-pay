@@ -57,7 +57,10 @@ $.ajax({
 });
 ````
 
-## Plugin
+## React
+If you'd like to use LND Pay frontend in your React project please go to [lnd-pay-react](https://github.com/mariodian/lnd-pay-react).
+
+## jQuery Plugin
 I've created a javascript [plugin](example/js/lndpay.jquery.js) for easy communication with the backend right from your website. 
 
 It's built with [jQuery](https://github.com/jquery/jquery), [Bootstrap](https://getbootstrap.com/), [Font Awesome](https://fontawesome.com) and [kjua](https://larsjung.de/kjua/) (QR code library). 
